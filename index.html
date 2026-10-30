@@ -253,7 +253,10 @@
               temp.select();
               const ok = document.execCommand("copy");
               temp.remove();
-              if (!ok) throw new Error("Copy command failed");
+              if (!navigator.clipboard || !window.isSecureContext) {
+  throw new Error("Clipboard unavailable");
+}
+await navigator.clipboard.writeText(name)
             }
             messageEl.textContent = `Copied "${name}"`;
           } catch {

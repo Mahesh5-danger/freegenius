@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FreeGenius YouTube Title Generator</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f0f4ff;
+  padding: 20px;
+  color: #26304a;
+}
+.container {
+  max-width: 500px;
+  margin: auto;
+  background: white;
+  padding: 22px;
+  border-radius: 18px;
+}
+h1 {color: #6045d8; text-align: center;}
+input, select, button {
+  width: 100%;
+  padding: 14px;
+  margin: 10px 0;
+  box-sizing: border-box;
+  border-radius: 9px;
+  font-size: 16px;
+}
+input, select {border: 1px solid #ccc;}
+button {
+  background: #6045d8;
+  color: white;
+  border: none;
+  font-weight: bold;
+}
+#result {
+  background: #f0edff;
+  padding: 15px;
+  border-radius: 10px;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>✨ FreeGenius</h1>
+<h2>YouTube Title Generator</h2>
+<p>Create catchy video titles for free!</p>
+
+<input id="topic" placeholder="Enter your video topic">
+
+<select id="style">
+<option value="curious">Curiosity</option>
+<option value="howto">How To</option>
+<option value="top">Top Ideas</option>
+<option value="simple">Simple</option>
+</select>
+
+<button onclick="generate()">Generate Titles</button>
+
+<div id="result">Your titles will appear here!</div>
+
+<button onclick="copyTitles()">Copy Titles</button>
+</div>
+
+<script>
+function generate() {
+ let topic = document.getElementById("topic").value.trim();
+ let style = document.getElementById("style").value;
+
+ if (!topic) {
+   alert("Please enter a video topic!");
+   return;
+ }
+
+ let titles = {
+  curious: [
+   `The Truth About ${topic}!`,
+   `You Won't Believe These Facts About ${topic}`,
+   `What Nobody Tells You About ${topic}`,
+   `Is ${topic} Really Worth It?`,
+   `Everything You Need to Know About ${topic}`
+  ],
+  howto: [
+   `How to Start ${topic}`,
+   `${topic} Explained for Beginners`,
+   `Learn ${topic} Step by Step`,
+   `Easy Guide to ${topic}`,
+   `How to Improve at ${topic}`
+  ],
+  top: [
+   `5 Amazing Things About ${topic}`,
+   `Top 10 ${topic} Tips`,
+   `7 Things You Should Know About ${topic}`,
+   `Best Ideas for ${topic}`,
+   `Top Mistakes to Avoid in ${topic}`
+  ],
+  simple: [
+   `My Guide to ${topic}`,
+   `Let's Talk About ${topic}`,
+   `${topic} for Everyone`,
+   `Exploring ${topic}`,
+   `A Beginner's Guide to ${topic}`
+  ]
+ };
+
+ document.getElementById("result").textContent =
+ titles[style].map((t,i) => (i+1)+". "+t).join("\n");
+}
+
+function copyTitles() {
+ let result = document.getElementById("result").textContent;
+
+ if (result === "Your titles will appear here!") {
+   alert("Generate titles first!");
+   return;
+ }
+
+ navigator.clipboard.writeText(result)
+ .then(() => alert("Titles copied!"))
+ .catch(() => alert("Please copy manually."));
+}
+</script>
+</body>
+</html>

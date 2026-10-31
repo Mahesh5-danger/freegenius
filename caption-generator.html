@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FreeGenius Caption Generator</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f0f4ff;
+  padding: 20px;
+  color: #26304a;
+}
+.container {
+  max-width: 500px;
+  margin: auto;
+  background: white;
+  padding: 22px;
+  border-radius: 18px;
+}
+h1 {color: #6045d8; text-align: center;}
+input, select, button {
+  width: 100%;
+  padding: 14px;
+  margin: 10px 0;
+  box-sizing: border-box;
+  border-radius: 9px;
+  font-size: 16px;
+}
+input, select {border: 1px solid #ccc;}
+button {
+  background: #6045d8;
+  color: white;
+  border: none;
+  font-weight: bold;
+}
+#result {
+  background: #f0edff;
+  padding: 15px;
+  border-radius: 10px;
+  white-space: pre-line;
+  min-height: 40px;
+}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>✨ FreeGenius</h1>
+<h2>Caption Generator</h2>
+<p>Create free social media captions!</p>
+
+<input id="topic" placeholder="Enter your topic">
+
+<select id="platform">
+<option value="Instagram">Instagram</option>
+<option value="YouTube">YouTube</option>
+<option value="Facebook">Facebook</option>
+</select>
+
+<select id="style">
+<option value="Cool">Cool</option>
+<option value="Funny">Funny</option>
+<option value="Motivational">Motivational</option>
+</select>
+
+<button onclick="generate()">Generate Caption</button>
+
+<div id="result">Your caption will appear here!</div>
+
+<button onclick="copyCaption()">Copy Caption</button>
+</div>
+
+<script>
+function generate() {
+ let topic = document.getElementById("topic").value.trim();
+ let platform = document.getElementById("platform").value;
+ let style = document.getElementById("style").value;
+
+ if (!topic) {
+   alert("Please enter a topic!");
+   return;
+ }
+
+ let captions = {
+  Cool: `🔥 ${topic} vibes!\n✨ Making every moment count.\n📍 ${platform} #${topic.replace(/\s+/g,"")}`,
+  Funny: `😂 Life is better with ${topic}!\n🤣 Just enjoying the moment!\n#Fun #${topic.replace(/\s+/g,"")}`,
+  Motivational: `🚀 Dream big with ${topic}!\n💪 Keep learning and growing.\n✨ Never stop believing!`
+ };
+
+ document.getElementById("result").textContent =
+ captions[style];
+}
+
+function copyCaption() {
+ let result = document.getElementById("result").textContent;
+ if (result === "Your caption will appear here!") {
+   alert("Generate a caption first!");
+   return;
+ }
+ navigator.clipboard.writeText(result)
+ .then(() => alert("Caption copied!"))
+ .catch(() => alert("Please copy the caption manually."));
+}
+</script>
+</body>
+</html>

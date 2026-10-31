@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FreeGenius Name Generator</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f0f4ff;
+  padding: 20px;
+  color: #26304a;
+}
+.container {
+  max-width: 500px;
+  margin: auto;
+  background: white;
+  padding: 22px;
+  border-radius: 18px;
+}
+h1 {color: #6045d8; text-align: center;}
+input, select, button {
+  width: 100%;
+  padding: 14px;
+  margin: 10px 0;
+  box-sizing: border-box;
+  border-radius: 9px;
+  font-size: 16px;
+}
+input, select {border: 1px solid #ccc;}
+button {
+  background: #6045d8;
+  color: white;
+  border: none;
+  font-weight: bold;
+}
+#result {
+  background: #f0edff;
+  padding: 15px;
+  border-radius: 10px;
+  line-height: 2;
+}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>✨ FreeGenius</h1>
+<h2>Name Generator</h2>
+<p>Create creative names for your ideas!</p>
+
+<input id="topic" placeholder="Enter your topic">
+
+<select id="type">
+<option value="brand">Brand Name</option>
+<option value="youtube">YouTube Channel</option>
+<option value="gaming">Gaming Name</option>
+<option value="project">Project Name</option>
+</select>
+
+<button onclick="generate()">Generate Names</button>
+
+<div id="result">Your names will appear here!</div>
+
+<button onclick="copyNames()">Copy Names</button>
+</div>
+
+<script>
+function generate() {
+ let topic = document.getElementById("topic").value.trim();
+ let type = document.getElementById("type").value;
+
+ if (!topic) {
+   alert("Please enter a topic!");
+   return;
+ }
+
+ let word = topic.replace(/[^a-zA-Z0-9]/g, "");
+ if (!word) {
+   alert("Please enter a valid topic!");
+   return;
+ }
+
+ let names = {
+ brand: ["Nova", "Bright", "Smart", "Urban", "Prime"],
+ youtube: ["Tube", "Vision", "Zone", "Studio", "World"],
+ gaming: ["Shadow", "Pixel", "Turbo", "Cyber", "Blaze"],
+ project: ["Future", "Spark", "Next", "Dream", "Creative"]
+ };
+
+ let result = names[type].map(
+   prefix => prefix + word.charAt(0).toUpperCase() + word.slice(1)
+ );
+
+ document.getElementById("result").textContent =
+ result.join("\n");
+}
+
+function copyNames() {
+ let result = document.getElementById("result").textContent;
+
+ if (result === "Your names will appear here!") {
+   alert("Generate names first!");
+   return;
+ }
+
+ navigator.clipboard.writeText(result)
+ .then(() => alert("Names copied!"))
+ .catch(() => alert("Please copy manually."));
+}
+</script>
+</body>
+</html>

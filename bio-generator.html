@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FreeGenius Bio Generator</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f0f4ff;
+  margin: 0;
+  padding: 25px 15px;
+  color: #202b46;
+}
+.container {
+  max-width: 500px;
+  margin: auto;
+  background: white;
+  padding: 25px;
+  border-radius: 18px;
+  box-shadow: 0 5px 20px #0001;
+}
+h1 { color: #6045d8; text-align: center; }
+p { text-align: center; color: #666; }
+input, select, button {
+  width: 100%;
+  padding: 13px;
+  margin: 10px 0;
+  box-sizing: border-box;
+  border-radius: 9px;
+  font-size: 16px;
+}
+input, select { border: 1px solid #ccc; }
+button {
+  background: #6045d8;
+  color: white;
+  border: none;
+  font-weight: bold;
+}
+.result {
+  background: #f0edff;
+  padding: 15px;
+  border-radius: 10px;
+  margin-top: 15px;
+  white-space: pre-line;
+  min-height: 40px;
+}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>✨ FreeGenius</h1>
+<h2>Bio Generator</h2>
+<p>Create your free social media bio!</p>
+
+<input id="name" placeholder="Enter your name">
+<input id="interest" placeholder="Your interest (e.g. Gaming)">
+
+<select id="style">
+<option value="cool">Cool</option>
+<option value="professional">Professional</option>
+<option value="creative">Creative</option>
+<option value="fun">Funny</option>
+</select>
+
+<button onclick="generateBio()">Generate Bio</button>
+
+<div class="result" id="result">
+Your bio will appear here!
+</div>
+
+<button onclick="copyBio()">Copy Bio</button>
+</div>
+
+<script>
+function generateBio() {
+  let name = document.getElementById("name").value.trim();
+  let interest = document.getElementById("interest").value.trim();
+  let style = document.getElementById("style").value;
+
+  if (!name || !interest) {
+    alert("Please enter your name and interest!");
+    return;
+  }
+
+  let bios = {
+    cool: `😎 ${name}\n🔥 Passionate about ${interest}\n🚀 Dream big. Work hard.`,
+    professional: `${name} | ${interest} Enthusiast\nFocused on learning and growing.\nCreating something meaningful.`,
+    creative: `✨ Hey, I'm ${name}!\n🎨 Exploring ${interest}\n💡 Ideas into reality.`,
+    fun: `🎉 It's ${name}!\n😂 Powered by ${interest}\n🌈 Good vibes and big dreams!`
+  };
+
+  document.getElementById("result").textContent = bios[style];
+}
+
+function copyBio() {
+  let bio = document.getElementById("result").textContent;
+  if (bio === "Your bio will appear here!") {
+    alert("Generate a bio first!");
+    return;
+  }
+  navigator.clipboard.writeText(bio)
+    .then(() => alert("Bio copied!"))
+    .catch(() => alert("Please select and copy the bio manually."));
+}
+</script>
+</body>
+</html>

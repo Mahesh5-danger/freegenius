@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FreeGenius Prompt Generator</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f0f4ff;
+  padding: 20px;
+  color: #26304a;
+}
+.container {
+  max-width: 500px;
+  margin: auto;
+  background: white;
+  padding: 22px;
+  border-radius: 18px;
+}
+h1 {color: #6045d8; text-align: center;}
+input, select, button {
+  width: 100%;
+  padding: 14px;
+  margin: 10px 0;
+  box-sizing: border-box;
+  border-radius: 9px;
+  font-size: 16px;
+}
+input, select {border: 1px solid #ccc;}
+button {
+  background: #6045d8;
+  color: white;
+  border: none;
+  font-weight: bold;
+}
+#result {
+  background: #f0edff;
+  padding: 15px;
+  border-radius: 10px;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>✨ FreeGenius</h1>
+<h2>Prompt Generator</h2>
+<p>Create ready-to-use creative prompts!</p>
+
+<input id="topic" placeholder="Enter your topic">
+
+<select id="type">
+<option value="content">Content Creation</option>
+<option value="study">Study and Learning</option>
+<option value="business">Business Ideas</option>
+<option value="art">Creative Art</option>
+</select>
+
+<button onclick="generate()">Generate Prompt</button>
+
+<div id="result">Your prompt will appear here!</div>
+
+<button onclick="copyPrompt()">Copy Prompt</button>
+</div>
+
+<script>
+function generate() {
+  let topic = document.getElementById("topic").value.trim();
+  let type = document.getElementById("type").value;
+
+  if (!topic) {
+    alert("Please enter a topic!");
+    return;
+  }
+
+  let prompts = {
+    content: `Create an engaging social media post about ${topic}. Include an interesting opening, useful information, and a memorable ending.`,
+    study: `Teach me about ${topic} in simple language. Give me examples, explain important points, and finish with five practice questions.`,
+    business: `Suggest five creative and beginner-friendly business ideas related to ${topic}. Explain each idea simply and include free ways to get started.`,
+    art: `Create a detailed creative art concept based on ${topic}. Describe the colors, composition, atmosphere, and visual details.`
+  };
+
+  document.getElementById("result").textContent = prompts[type];
+}
+
+function copyPrompt() {
+  let result = document.getElementById("result").textContent;
+
+  if (result === "Your prompt will appear here!") {
+    alert("Generate a prompt first!");
+    return;
+  }
+
+  navigator.clipboard.writeText(result)
+    .then(() => alert("Prompt copied!"))
+    .catch(() => alert("Please copy manually."));
+}
+</script>
+</body>
+</html>

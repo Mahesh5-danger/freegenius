@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FreeGenius Hashtag Generator</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f3f0ff;
+  text-align: center;
+  padding: 25px;
+}
+.container {
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  max-width: 450px;
+  margin: auto;
+}
+h1 { color: #6045d8; }
+input {
+  width: 90%;
+  padding: 12px;
+  margin: 12px 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+button {
+  background: #6045d8;
+  color: white;
+  padding: 13px 20px;
+  border: none;
+  border-radius: 8px;
+  margin: 8px;
+  cursor: pointer;
+}
+#result {
+  margin-top: 20px;
+  overflow-wrap: anywhere;
+  line-height: 1.8;
+}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>✨ Free Hashtag Generator</h1>
+<p>Enter a topic to generate hashtags for your posts.</p>
+
+<input id="topic" type="text" placeholder="Example: Gaming">
+
+<br>
+<button onclick="generate()">Generate Hashtags</button>
+<button onclick="copyTags()">Copy Hashtags</button>
+
+<div id="result"></div>
+</div>
+
+<script>
+function generate() {
+  let topic = document.getElementById("topic").value.trim();
+
+  if (!topic) {
+    document.getElementById("result").innerText =
+      "Please enter a topic first!";
+    return;
+  }
+
+  let clean = topic.replace(/[^a-zA-Z0-9]/g, "");
+  let tags = [
+    "#" + clean,
+    "#" + clean + "Lovers",
+    "#" + clean + "World",
+    "#Explore" + clean,
+    "#Trending",
+    "#CreativeContent",
+    "#SocialMedia",
+    "#DailyInspiration",
+    "#ContentCreator",
+    "#FreeGenius"
+  ];
+
+  document.getElementById("result").innerText = tags.join(" ");
+}
+
+function copyTags() {
+  let result = document.getElementById("result").innerText;
+
+  if (!result || result.includes("Please enter")) {
+    alert("Generate hashtags first!");
+    return;
+  }
+
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(result)
+      .then(() => alert("Hashtags copied!"))
+      .catch(() => alert("Please copy the hashtags manually."));
+  } else {
+    alert("Please copy the hashtags manually.");
+  }
+}
+</script>
+</body>
+</html>

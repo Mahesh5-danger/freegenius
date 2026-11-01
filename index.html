@@ -240,29 +240,26 @@
         button.className = "copy";
         button.textContent = "Copy";
         button.addEventListener("click", async () => {
-          try {
-            if (navigator.clipboard && window.isSecureContext) {
-              await navigator.clipboard.writeText(name);
-            } else {
-              const temp = document.createElement("textarea");
-              temp.value = name;
-              temp.setAttribute("readonly", "");
-              temp.style.position = "fixed";
-              temp.style.opacity = "0";
-              document.body.appendChild(temp);
-              temp.select();
-              const ok = document.execCommand("copy");
-              temp.remove();
-              if (!navigator.clipboard || !window.isSecureContext) {
-  throw new Error("Clipboard unavailable");
-}
-await navigator.clipboard.writeText(name)
-            }
-            messageEl.textContent = `Copied "${name}"`;
-          } catch {
-            messageEl.textContent = `Copy automatically isn't available here. Select and copy: ${name}`;
-          }
-        });
+  try {
+    if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(name);
+    } else {
+      const temp = document.createElement("textarea");
+      temp.value = name;
+      temp.setAttribute("readonly", "");
+      document.body.appendChild(temp);
+      temp.select();
+      const copied = document.execCommand("copy");
+      temp.remove();
+
+      if (!copied) throw new Error("Copy failed");
+    }
+
+    messageEl.textContent = `Copied "${name}"`;
+  } catch {
+    messageEl.textContent = `Copy manually: ${name}`;
+  }
+});
         card.append(text, button);
         resultsEl.appendChild(card);
       });
